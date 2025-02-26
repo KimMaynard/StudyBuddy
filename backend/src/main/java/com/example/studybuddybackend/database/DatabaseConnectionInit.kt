@@ -3,7 +3,7 @@ package com.example.studybuddybackend.database
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
-import com.example.studybuddybackend.database.entities.Users
+import com.example.studybuddybackend.database.entities.StudentUsers
 
 object DatabaseConnectionInit {
     fun init() {
@@ -15,7 +15,7 @@ object DatabaseConnectionInit {
         )
 
         transaction {
-            SchemaUtils.create(Users) // Add more tables here as needed
+            SchemaUtils.create(StudentUsers) // Add more tables here as needed
         }
     }
 }

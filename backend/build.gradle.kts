@@ -9,6 +9,10 @@ plugins {
 }*/
 
 dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    implementation("org.jetbrains.kotlin:kotlin-reflect") // Reflection support
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3") // If using coroutines
+
     // Ktor
     implementation("io.ktor:ktor-server-core:3.1.0")
     implementation("io.ktor:ktor-server-netty:3.1.0")
@@ -21,6 +25,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-core:0.59.0")
     implementation("org.jetbrains.exposed:exposed-dao:0.59.0")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.59.0")
+    implementation("org.jetbrains.exposed:exposed-java-time:0.59.0")
 
     // PostgreSQL JDBC driver
     implementation("org.postgresql:postgresql:42.6.0")
