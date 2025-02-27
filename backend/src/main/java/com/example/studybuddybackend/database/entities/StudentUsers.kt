@@ -13,6 +13,7 @@ object StudentUsers : Table("student_users") {
     val profilePicture = binary("profile_picture").nullable()
     val username = varchar("username", 50).uniqueIndex()
     val email = varchar("email", 100).uniqueIndex()
+    val areaCode = varchar("area_code", 10).nullable()
     val phoneNumber = varchar("phone_number", 20).nullable()
     val password = varchar("password", 256)
     val currentDegree = varchar("current_degree", 50)
