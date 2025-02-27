@@ -10,6 +10,6 @@ object Universities : Table("universities") {
     val address = text("address")
     val website = text("website")
 
-    // Many-to-one relation with StudentUsers
+    //Many-to-one relation with StudentUsers
     val userId = reference("user_id", StudentUsers.id)
 }

@@ -7,8 +7,9 @@ object Messages : Table("messages") {
     val id = long("message_id").autoIncrement()
     override val primaryKey = PrimaryKey(id)
 
-    val chatRoomId = reference("chatroom_id", ChatRooms.id) // Linked to ChatRoom
+    val chatRoomId = reference("chatroom_id", ChatRooms.id) //Messages linked to one chatroom
     val senderId = reference("sender_id", StudentUsers.id)
     val content = text("content")
-    val timestamp = timestampWithTimeZone("timestamp")
+    val messageImages = binary("message_images") //Could also use blob("message_images")
+    val messageSentTimestamp = timestampWithTimeZone("message_sent_timestamp")
 }
