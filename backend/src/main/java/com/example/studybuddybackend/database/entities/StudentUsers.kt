@@ -4,6 +4,7 @@ import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.timestampWithTimeZone
 
 object StudentUsers : Table("student_users") {
+
     val id = long("user_id").autoIncrement()
     override val primaryKey = PrimaryKey(id)
 
@@ -23,4 +24,5 @@ object StudentUsers : Table("student_users") {
 
     //TEXT[] datatype for majors, interests, classes removed.
     //Majors, interests, and classes made into their own entities.
+
 }

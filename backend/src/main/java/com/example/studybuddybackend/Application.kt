@@ -1,7 +1,6 @@
 package com.example.studybuddybackend
 
-//import io.ktor.server.plugins.calllogging.*
-
+import com.example.studybuddybackend.database.DatabaseConnectionInit
 import io.ktor.http.ContentType
 import io.ktor.serialization.jackson.jackson
 import io.ktor.server.application.Application
@@ -13,28 +12,26 @@ import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 
+import com.example.studybuddybackend.routes.userRoutes
+
 fun main(args: Array<String>) {
-    //embeddedServer(Netty, port = 8081, module = Application::module).start(wait = true)
-    embeddedServer(Netty, 8081) {
-        routing {
-            get("/") {
-                call.respondText("Hello, world!", ContentType.Text.Html)
-            }
-        }
-    }.start(wait = true)
-
-
+    embeddedServer(Netty, port = 8081, module = Application::module).start(wait = true)
 }
 
 fun Application.module() {
+
+    //Initialize StudyBuddyDatabase connection
+    DatabaseConnectionInit.init()
+
     install(ContentNegotiation) {
         jackson()
     }
-    //install(CallLogging)
 
     routing {
         get("/") {
             call.respondText("Hello from StudyBuddy Backend!", ContentType.Text.Plain)
         }
+        userRoutes()
     }
+
 }

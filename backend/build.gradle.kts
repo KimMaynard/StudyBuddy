@@ -13,7 +13,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect") // Reflection support
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3") // If using coroutines
 
-    // Ktor
+    // Ktor server
     implementation("io.ktor:ktor-server-core:3.1.0")
     implementation("io.ktor:ktor-server-netty:3.1.0")
     //implementation("io.ktor:ktor-server-routing:3.1.0") //This seems to be no longer available in 3.1.0
@@ -21,13 +21,13 @@ dependencies {
     implementation("io.ktor:ktor-serialization-jackson:3.1.0")
     implementation("io.ktor:ktor-server-call-logging:3.1.0")
 
-    // Exposed
+    // Exposed ORM Kotlin SQL framework for easier maintenance
     implementation("org.jetbrains.exposed:exposed-core:0.59.0")
     implementation("org.jetbrains.exposed:exposed-dao:0.59.0")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.59.0")
     implementation("org.jetbrains.exposed:exposed-java-time:0.59.0")
 
-    // PostgreSQL JDBC driver
+    // PostgreSQL JDBC driver for the studybuddydatabase
     implementation("org.postgresql:postgresql:42.6.0")
 
     // ZXing for QR code generation
@@ -39,6 +39,9 @@ dependencies {
 
     // JUnit for unit tests
     testImplementation("junit:junit:4.13.2")
+
+    // SLF4J logger for checking connections
+    implementation("org.slf4j:slf4j-api:2.0.7")
 }
 
 application {
