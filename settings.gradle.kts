@@ -20,10 +20,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "StudyBuddy"
-<<<<<<< HEAD
-include(":app")
-include(":app")
-=======
 include(":frontend:app", ":backend") //Now with separated front-end, back-end, and AI modules
->>>>>>> frontAndBack-End
+
  
