@@ -58,6 +58,7 @@ class StudyGroupsRepository {
             .singleOrNull()
     }
 
+
     //Update
     fun updateStudyGroup(id: Long, updatedStudyGroup: StudyGroupEntity): Boolean = transaction {
         StudyGroups.update({StudyGroups.id eq id  }){

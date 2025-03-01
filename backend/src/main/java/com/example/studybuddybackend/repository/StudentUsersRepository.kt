@@ -83,6 +83,7 @@ class StudentUsersRepository {
             .singleOrNull()
     }
 
+
     //Update
     fun updateStudentUser(id: Long, updatedStudentUser: StudentUserEntity): Boolean = transaction {
         StudentUsers.update({StudentUsers.id eq id  }){

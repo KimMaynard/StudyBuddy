@@ -38,6 +38,8 @@ object ClassesRepository {
         Classes.selectAll().map(::rowToClassEntity)
     }
 
+
+
     // Get a class given its id
     // Renamed to getClassById to maintain consistency with previous function name
     fun getClassById(id: Long): ClassEntity? = transaction {

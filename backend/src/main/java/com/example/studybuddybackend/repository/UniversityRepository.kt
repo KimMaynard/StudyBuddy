@@ -50,6 +50,7 @@ class UniversityRepository {
             .singleOrNull()
     }
 
+
     //Update
     fun updateUniversity(id: Long, updatedUniversity: UniversityEntity): Boolean = transaction {
         Universities.update({Universities.id eq id  }){
