@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "StudyBuddy"
 include(":frontend:app", ":backend") //Now with separated front-end, back-end, and AI modules
+
  
