@@ -1,6 +1,5 @@
 package com.example.studybuddybackend.repository
 
-
 import com.example.studybuddybackend.database.entities.StudyGroups
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -12,8 +11,8 @@ data class StudyGroupEntity(
     val groupName: String,
     val description: String,
     val dateCreated: OffsetDateTime,
-    val qrCodeUrl: String,
-    val qrCodeData: ByteArray
+    val qrCodeUrl: String?,
+    val qrCodeData: ByteArray?
 )
 
 private fun rowToStudyGroupEntity(row: ResultRow): StudyGroupEntity{

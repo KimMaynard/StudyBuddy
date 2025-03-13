@@ -10,8 +10,8 @@ data class ChatRoomEntity(
     val id: Long? = null,
     val name: String,
     val studyType: String,
-    val qrCodeUrl: String,
-    val qrCodeData: ByteArray,
+    val qrCodeUrl: String?,
+    val qrCodeData: ByteArray?,
     val createdAt: OffsetDateTime,
     val studyGroupId: Long
 )
