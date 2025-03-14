@@ -22,7 +22,4 @@ object StudentUsers : Table("student_users") {
     val preferredStudyStyle = varchar("preferred_study_style", 100)
     val dateCreated = timestampWithTimeZone("date_created")
 
-    //TEXT[] datatype for majors, interests, classes removed.
-    //Majors, interests, and classes made into their own entities.
-
 }

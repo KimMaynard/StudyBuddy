@@ -1,11 +1,9 @@
 package com.example.studybuddybackend.repository
 
-
 import com.example.studybuddybackend.database.entities.Majors
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-
 
 data class MajorEntity(
     val id: Long? = null,
@@ -37,16 +35,11 @@ class MajorsRepository {
 
     // Get a major given its id
     fun getMajorById(id: Long): MajorEntity? = transaction {
-
-        val condition = SqlExpressionBuilder.run {
-            Majors.id eq id
-        }
-
-        Majors.select(condition)
-            .map { row -> rowToMajorEntity(row) } // Now able to map the row to a major entity
+        Majors.selectAll()
+            .andWhere { Majors.id eq id }
+            .map(::rowToMajorEntity)
             .singleOrNull()
     }
-
 
     //Update
     fun updateMajor(id: Long, updatedMajor: MajorEntity): Boolean = transaction {

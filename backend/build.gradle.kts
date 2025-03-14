@@ -16,10 +16,10 @@ dependencies {
     // Ktor server
     implementation("io.ktor:ktor-server-core:3.1.0")
     implementation("io.ktor:ktor-server-netty:3.1.0")
-    //implementation("io.ktor:ktor-server-routing:3.1.0") //This seems to be no longer available in 3.1.0
     implementation("io.ktor:ktor-server-content-negotiation:3.1.0")
     implementation("io.ktor:ktor-serialization-jackson:3.1.0")
     implementation("io.ktor:ktor-server-call-logging:3.1.0")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2") // Needed for date attributes
 
     // Exposed ORM Kotlin SQL framework for easier maintenance
     implementation("org.jetbrains.exposed:exposed-core:0.59.0")

@@ -12,7 +12,10 @@ import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 
-import com.example.studybuddybackend.routes.userRoutes
+//Route imports
+import com.example.studybuddybackend.routes.studentUserRoutes
+import com.example.studybuddybackend.routes.majorsRoutes
+import com.example.studybuddybackend.routes.studentUserMajorsRoutes
 
 fun main(args: Array<String>) {
     embeddedServer(Netty, port = 8081, module = Application::module).start(wait = true)
@@ -24,14 +27,18 @@ fun Application.module() {
     DatabaseConnectionInit.init()
 
     install(ContentNegotiation) {
-        jackson()
+        jackson{
+            registerModule(com.fasterxml.jackson.datatype.jsr310.JavaTimeModule()) // For date attributes
+        }
     }
 
     routing {
         get("/") {
             call.respondText("Hello from StudyBuddy Backend!", ContentType.Text.Plain)
         }
-        userRoutes()
+        studentUserRoutes()
+        majorsRoutes()
+        studentUserMajorsRoutes()
     }
 
 }
