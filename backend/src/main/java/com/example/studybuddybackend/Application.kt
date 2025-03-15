@@ -12,10 +12,11 @@ import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 
-//Route imports
+// Route imports
 import com.example.studybuddybackend.routes.studentUserRoutes
 import com.example.studybuddybackend.routes.majorsRoutes
 import com.example.studybuddybackend.routes.studentUserMajorsRoutes
+import com.example.studybuddybackend.routes.universitiesRoutes
 
 fun main(args: Array<String>) {
     embeddedServer(Netty, port = 8081, module = Application::module).start(wait = true)
@@ -39,6 +40,7 @@ fun Application.module() {
         studentUserRoutes()
         majorsRoutes()
         studentUserMajorsRoutes()
+        universitiesRoutes()
     }
 
 }
