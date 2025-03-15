@@ -4,7 +4,7 @@ import com.example.studybuddybackend.database.entities.StudyBuddies
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
-// Alias eq and deleteWhere for avoiding overshadowing
+// Alias eq and deleteWhere to avoiding overshadowing
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq as exposedEq
 import org.jetbrains.exposed.sql.deleteWhere as exposedDeleteWhere
 
