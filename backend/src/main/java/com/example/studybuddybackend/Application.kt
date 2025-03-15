@@ -17,6 +17,7 @@ import com.example.studybuddybackend.routes.studentUserRoutes
 import com.example.studybuddybackend.routes.majorsRoutes
 import com.example.studybuddybackend.routes.studentUserMajorsRoutes
 import com.example.studybuddybackend.routes.universitiesRoutes
+import com.example.studybuddybackend.routes.studyBuddiesRoutes
 
 fun main(args: Array<String>) {
     embeddedServer(Netty, port = 8081, module = Application::module).start(wait = true)
@@ -41,6 +42,7 @@ fun Application.module() {
         majorsRoutes()
         studentUserMajorsRoutes()
         universitiesRoutes()
+        studyBuddiesRoutes()
     }
 
 }
