@@ -10,6 +10,6 @@ object StudyGroups : Table("study_groups") {
     val groupName = varchar("group_name", 200)
     val description = text("description")
     val dateCreated = timestampWithTimeZone("date_created")
-    val qrCodeUrl = text("qr_code_url")
-    val qrCodeData = binary("qr_code_data")
+    val qrCodeUrl = text("qr_code_url").nullable() //remove nullable later
+    val qrCodeData = binary("qr_code_data").nullable() //remove nullable later
 }

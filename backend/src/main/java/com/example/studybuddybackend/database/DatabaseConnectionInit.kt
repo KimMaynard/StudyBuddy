@@ -26,7 +26,7 @@ object DatabaseConnectionInit {
                 StudentUsers, Majors, Interests, Classes,
                 StudentUserMajors, StudentUserInterests, StudentUserClasses,
                 Universities, StudyGroups, StudyGroupMembers,
-                ChatRooms, ChatRoomMembers, Messages
+                ChatRooms, ChatRoomMembers, Messages, StudyBuddies
             )
         }
         logger.info("StudyBuddyDatabase schema created/verified successfully.")

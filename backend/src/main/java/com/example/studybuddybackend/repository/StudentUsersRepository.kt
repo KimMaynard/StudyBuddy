@@ -1,6 +1,5 @@
 package com.example.studybuddybackend.repository
 
-
 import com.example.studybuddybackend.database.entities.StudentUsers
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -10,13 +9,13 @@ import java.time.OffsetDateTime
 data class StudentUserEntity(
     val id: Long? = null,
     val firstName: String,
-    val middleName: String? = "", //given a placeholder to prevent errors
+    val middleName: String? = "", // Given a placeholder to prevent errors
     val lastName: String,
     val profilePicture: ByteArray?,
     val username: String,
     val email: String,
-    val areaCode: String? = "", //given a placeholder to prevent errors
-    val phoneNumber: String? = "", //given a placeholder to prevent errors
+    val areaCode: String? = "", // Given a placeholder to prevent errors
+    val phoneNumber: String? = "", // Given a placeholder to prevent errors
     val password: String,
     val currentDegree: String,
     val seniority: String,
@@ -45,7 +44,7 @@ private fun rowToStudentUserEntity(row: ResultRow): StudentUserEntity{
 
 class StudentUsersRepository {
 
-    //Create
+    // Create
     fun createStudentUser(studentUserEntity: StudentUserEntity): StudentUserEntity = transaction {
         val newId = StudentUsers.insert {
             it[firstName] = studentUserEntity.firstName
@@ -65,26 +64,21 @@ class StudentUsersRepository {
         studentUserEntity.copy(id = newId) // classEntity.id would be null, so we need to copy the new ID instead
     }
 
-    // Read all
+    // Gets all student users
     fun getAllStudentUsers(): List<StudentUserEntity> = transaction {
         StudentUsers.selectAll().map(::rowToStudentUserEntity)
     }
 
-
     // Get a student user given its id
     fun getStudentUserById(id: Long): StudentUserEntity? = transaction {
-
-        val condition = SqlExpressionBuilder.run {
-            StudentUsers.id eq id
-        }
-
-        StudentUsers.select(condition)
-            .map { row -> rowToStudentUserEntity(row) } // Now able to map the row to a user entity
+        StudentUsers
+            .selectAll()                    // SELECT * FROM student_users
+            .andWhere { StudentUsers.id eq id }  // WHERE student_users.id = id
+            .map(::rowToStudentUserEntity)
             .singleOrNull()
-    }
+    } // select() would cause type mismatches. Use this workaround.
 
-
-    //Update
+    // Update
     fun updateStudentUser(id: Long, updatedStudentUser: StudentUserEntity): Boolean = transaction {
         StudentUsers.update({StudentUsers.id eq id  }){
             it[firstName] = updatedStudentUser.firstName
@@ -103,14 +97,9 @@ class StudentUsersRepository {
         } > 0
     }
 
-
-    //Delete
+    // Delete
     fun deleteStudentUser(id: Long): Boolean = transaction {
         StudentUsers.deleteWhere { StudentUsers.id eq id } > 0
     }
-
-
-
-
 
 }
