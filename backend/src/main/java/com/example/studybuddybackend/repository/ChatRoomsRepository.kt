@@ -30,7 +30,7 @@ private fun rowToChatRoomEntity(row: ResultRow): ChatRoomEntity {
 }
 class ChatRoomRepository {
 
-    // Create
+    // Create a new chatroom
     fun createChatRoom(chatRoomEntity: ChatRoomEntity): ChatRoomEntity = transaction {
         val newId = ChatRooms.insert {
             it[name] = chatRoomEntity.name
@@ -43,7 +43,7 @@ class ChatRoomRepository {
         chatRoomEntity.copy(id = newId) // classEntity.id would be null, so we need to copy the new ID instead
     }
 
-    // Read all
+    // Read all chat rooms
    fun getAllChatRooms(): List<ChatRoomEntity> = transaction {
        ChatRooms.selectAll().map(::rowToChatRoomEntity)
    }
@@ -56,7 +56,7 @@ class ChatRoomRepository {
             .singleOrNull()
     }
 
-    // Update
+    // Update a chatroom
     fun updateChatRoom(id: Long, updatedChatRoom: ChatRoomEntity): Boolean = transaction {
         ChatRooms.update({ChatRooms.id eq id  }){
             it[name] = updatedChatRoom.name
@@ -68,7 +68,7 @@ class ChatRoomRepository {
         } > 0
     }
 
-    // Delete
+    // Delete a chatroom
     fun deleteChatRoom(id: Long): Boolean = transaction {
         ChatRooms.deleteWhere { ChatRooms.id eq id } > 0
     }

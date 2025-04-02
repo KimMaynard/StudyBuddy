@@ -52,7 +52,4 @@ class InterestsRepository {
         Interests.deleteWhere { Interests.id eq id } > 0
     }
 
-
-
-
 }

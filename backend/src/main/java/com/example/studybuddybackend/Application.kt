@@ -17,6 +17,7 @@ import io.ktor.server.routing.routing
 // Route imports
 import com.example.studybuddybackend.routes.studentUserRoutes
 import com.example.studybuddybackend.routes.majorsRoutes
+import com.example.studybuddybackend.routes.messagesRoutes
 import com.example.studybuddybackend.routes.studentUserMajorsRoutes
 import com.example.studybuddybackend.routes.universitiesRoutes
 import com.example.studybuddybackend.routes.studyBuddiesRoutes
@@ -49,6 +50,7 @@ fun Application.module() {
         interestsRoutes()
         studyGroupsRoutes()
         chatRoomsRoutes()
+        messagesRoutes()
     }
 
 }

@@ -38,7 +38,7 @@ fun Route.interestsRoutes() {
         }
     }
 
-    // Create a new interest.
+    // Create a new interest
     post("/interests") {
         val interestDTO = call.receive<InterestDTO>()
         val newInterest = InterestEntity(id = null, name = interestDTO.name)
@@ -62,7 +62,7 @@ fun Route.interestsRoutes() {
         }
     }
 
-    // Delete an interest.
+    // Delete an interest
     delete("/interests/{id}") {
         val id = call.parameters["id"]?.toLongOrNull()
             ?: return@delete call.respond(HttpStatusCode.BadRequest, "Invalid or missing interest id.")

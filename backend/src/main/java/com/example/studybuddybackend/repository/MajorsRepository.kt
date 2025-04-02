@@ -17,7 +17,6 @@ private fun rowToMajorEntity(row: ResultRow): MajorEntity{
     )
 }
 
-
 class MajorsRepository {
 
     //Create
@@ -52,10 +51,5 @@ class MajorsRepository {
     fun deleteMajor(id: Long): Boolean = transaction {
         Majors.deleteWhere { Majors.id eq id } > 0
     }
-
-
-
-
-
 
 }
