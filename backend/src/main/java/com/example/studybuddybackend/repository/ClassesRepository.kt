@@ -23,8 +23,8 @@ private fun rowToClassEntity(row: ResultRow): ClassEntity {
 
 object ClassesRepository {
 
-    // Create
-    // = transaction used to return the value of its last expression
+    // Create a new class
+    // = used to return the value of its last expression
     fun createClass(classEntity: ClassEntity): ClassEntity = transaction {
         val newId = Classes.insert {
             it[className] = classEntity.className
@@ -33,15 +33,12 @@ object ClassesRepository {
         classEntity.copy(id = newId) // classEntity.id would be null, so we need to copy the new ID instead
     }
 
-    // Read all
+    // Read all classes
     fun getAllClasses(): List<ClassEntity> = transaction {
         Classes.selectAll().map(::rowToClassEntity)
     }
 
-
-
     // Get a class given its id
-    // Renamed to getClassById to maintain consistency with previous function name
     fun getClassById(id: Long): ClassEntity? = transaction {
         // Condition necessary for the SqlExpressionBuilder
         // Necessary for the lambda expression - was giving a type mismatch error, stating that it was
@@ -57,7 +54,7 @@ object ClassesRepository {
             .singleOrNull()
     }
 
-    // Update
+    // Update a class
     fun updateClass(id: Long, updatedClass: ClassEntity): Boolean = transaction {
         Classes.update({ Classes.id eq id }) {
             it[className] = updatedClass.className
@@ -65,7 +62,7 @@ object ClassesRepository {
         } > 0
     }
 
-    // Delete
+    // Delete a class
     fun deleteClass(id: Long): Boolean = transaction {
         Classes.deleteWhere { Classes.id eq id } > 0
     }

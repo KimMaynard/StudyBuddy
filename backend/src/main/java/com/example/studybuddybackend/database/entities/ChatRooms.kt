@@ -8,11 +8,11 @@ object ChatRooms : Table("chat_rooms") {
     override val primaryKey = PrimaryKey(id)
 
     val name = varchar("name", 200)
-    val studyType = varchar("study_type", 100) //May change to text("study_type") if need be later
-    val qrCodeUrl = text("qr_code_url").nullable() //remove nullable later
-    val qrCodeData = binary("qr_code_data").nullable() //remove nullable later
+    val studyType = varchar("study_type", 100) // May change to text("study_type") if need be later
+    val qrCodeUrl = text("qr_code_url").nullable() // remove nullable later
+    val qrCodeData = binary("qr_code_data").nullable() // remove nullable later
     val createdAt = timestampWithTimeZone("created_at")
 
-    //Each chatroom belongs to one Study Group
+    // Each chatroom belongs to one Study Group
     val studyGroupId = reference("study_group_id", StudyGroups.id)
 }

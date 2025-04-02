@@ -5,7 +5,6 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
-
 data class InterestEntity(
     val id: Long? = null,
     val name: String
@@ -18,12 +17,9 @@ private fun rowToInterestEntity(row: ResultRow): InterestEntity{
     )
 }
 
-
-
 class InterestsRepository {
 
-
-    //Create
+    // Create a new interest
     fun createInterest(interestEntity: InterestEntity): InterestEntity = transaction {
         val newId = Interests.insert {
             it[name] = interestEntity.name
@@ -31,35 +27,29 @@ class InterestsRepository {
         interestEntity.copy(id = newId)
     }
 
-    //Read all
+    // Read all interests
     fun getAllInterests(): List<InterestEntity> = transaction {
         Interests.selectAll().map(::rowToInterestEntity)
     }
 
-    // Get an interest given its id
+    // Get an interest by its id
     fun getInterestById(id: Long): InterestEntity? = transaction {
-
-        val condition = SqlExpressionBuilder.run {
-            Interests.id eq id
-        }
-
-        Interests.select(condition)
-            .map { row -> rowToInterestEntity(row) } // Now able to map the row to a major entity
+        Interests.selectAll()
+            .andWhere { Interests.id eq id }
+            .map(::rowToInterestEntity)
             .singleOrNull()
     }
 
+    // Update interest info
     fun updateInterest(id: Long, updatedInterest: InterestEntity): Boolean = transaction {
         Interests.update({Interests.id eq id  }){
             it[name] = updatedInterest.name
         } > 0
     }
 
-    //Delete
+    // Delete an interest
     fun deleteInterest(id: Long): Boolean = transaction {
         Interests.deleteWhere { Interests.id eq id } > 0
     }
-
-
-
 
 }
