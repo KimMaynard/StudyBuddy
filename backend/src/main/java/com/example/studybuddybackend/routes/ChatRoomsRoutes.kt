@@ -98,7 +98,5 @@ fun Route.chatRoomsRoutes(){
             call.respond(HttpStatusCode.NotFound, "Chatroom not found.")
         }
 
-
-
     }
 }
