@@ -44,7 +44,7 @@ private fun rowToStudentUserEntity(row: ResultRow): StudentUserEntity{
 
 class StudentUsersRepository {
 
-    // Create
+    // Create a new student user
     fun createStudentUser(studentUserEntity: StudentUserEntity): StudentUserEntity = transaction {
         val newId = StudentUsers.insert {
             it[firstName] = studentUserEntity.firstName
@@ -78,7 +78,7 @@ class StudentUsersRepository {
             .singleOrNull()
     } // select() would cause type mismatches. Use this workaround.
 
-    // Update
+    // Update the info of a student user
     fun updateStudentUser(id: Long, updatedStudentUser: StudentUserEntity): Boolean = transaction {
         StudentUsers.update({StudentUsers.id eq id  }){
             it[firstName] = updatedStudentUser.firstName
@@ -97,7 +97,7 @@ class StudentUsersRepository {
         } > 0
     }
 
-    // Delete
+    // Delete student user account
     fun deleteStudentUser(id: Long): Boolean = transaction {
         StudentUsers.deleteWhere { StudentUsers.id eq id } > 0
     }

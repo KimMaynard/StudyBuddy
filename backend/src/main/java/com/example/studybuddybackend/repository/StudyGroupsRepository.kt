@@ -28,7 +28,7 @@ private fun rowToStudyGroupEntity(row: ResultRow): StudyGroupEntity{
 
 class StudyGroupsRepository {
 
-    //Create
+    // Create a study group
     fun createStudyGroup(studyGroupEntity: StudyGroupEntity): StudyGroupEntity = transaction {
         val newId = StudyGroups.insert {
             it[groupName] = studyGroupEntity.groupName
@@ -40,25 +40,20 @@ class StudyGroupsRepository {
         studyGroupEntity.copy(id = newId) // classEntity.id would be null, so we need to copy the new ID instead
     }
 
-    // Read all
+    // Read all study groups
     fun getAllStudyGroups(): List<StudyGroupEntity> = transaction {
         StudyGroups.selectAll().map(::rowToStudyGroupEntity)
     }
 
     // Get a study group given its id
     fun getStudyGroupById(id: Long): StudyGroupEntity? = transaction {
-
-        val condition = SqlExpressionBuilder.run {
-            StudyGroups.id eq id
-        }
-
-        StudyGroups.select(condition)
-            .map { row -> rowToStudyGroupEntity(row) }
+        StudyGroups.selectAll()
+            .andWhere { StudyGroups.id eq id }
+            .map(::rowToStudyGroupEntity)
             .singleOrNull()
     }
 
-
-    //Update
+    // Update a study group
     fun updateStudyGroup(id: Long, updatedStudyGroup: StudyGroupEntity): Boolean = transaction {
         StudyGroups.update({StudyGroups.id eq id  }){
             it[groupName] = updatedStudyGroup.groupName
@@ -69,10 +64,9 @@ class StudyGroupsRepository {
         } > 0
     }
 
-    //Delete
+    // Delete a study group
     fun deleteStudyGroup(id: Long): Boolean = transaction {
         StudyGroups.deleteWhere { StudyGroups.id eq id } > 0
     }
-
 
 }

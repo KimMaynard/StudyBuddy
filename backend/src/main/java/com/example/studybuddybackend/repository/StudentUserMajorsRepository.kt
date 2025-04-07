@@ -67,4 +67,5 @@ class StudentUserMajorsRepository {
         }
         rowsDeleted > 0
     }
+
 }

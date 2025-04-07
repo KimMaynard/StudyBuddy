@@ -71,4 +71,5 @@ class StudyBuddiesRepository {
         }
         rowsDeleted > 0
     }
+
 }
