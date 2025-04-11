@@ -1,6 +1,5 @@
 package com.example.studybuddybackend.routes
 
-
 import com.example.studybuddybackend.repository.StudentUserInterestsRepository
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond

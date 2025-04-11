@@ -15,7 +15,6 @@ data class StudentUserInterestEntity(
 
 class StudentUserInterestsRepository{
 
-
     // insert interest into table
     fun createStudentUserInterest(userId: Long, interestId: Long): StudentUserInterestEntity? = transaction {
         val inserted = StudentUserInterests.insert {
@@ -33,6 +32,7 @@ class StudentUserInterestsRepository{
             null
         }
     }
+
     // finds all users with the specified interest ID
     fun getAllStudentByInterestId(interestId: Long): List<StudentUserInterestEntity> = transaction {
         StudentUserInterests.selectAll()
