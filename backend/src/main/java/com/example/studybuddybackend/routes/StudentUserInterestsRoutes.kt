@@ -10,15 +10,25 @@ import io.ktor.server.routing.Route
 
 fun Route.studentUserInterestsRoutes(){
 
-    // get all interests associated with a user
+    // Gets all interests associated with a user
     get("/students/{userId}/interests"){
         val userId = call.parameters["userId"]?.toLongOrNull()
             ?: return@get call.respond(HttpStatusCode.BadRequest, "Invalid or missing user ID.")
         val repository = StudentUserInterestsRepository()
-        val associations = repository.getAllInterestsByUserId(userId)
-        call.respond(HttpStatusCode.OK, associations)
+        val interestsOfAUser = repository.getAllInterestsByUserId(userId)
+        call.respond(HttpStatusCode.OK, interestsOfAUser)
     }
 
+    // Gets all users of a specific interest
+    get("/interests/{interestId}/users") {
+        val interestId = call.parameters["interestId"]?.toLongOrNull()
+            ?: return@get call.respond(HttpStatusCode.BadRequest, "Invalid or missing interest ID.")
+        val repository = StudentUserInterestsRepository()
+        val usersWithInterest = repository.getAllStudentByInterestId(interestId)
+        call.respond(HttpStatusCode.OK, usersWithInterest)
+    }
+
+    // Gets all interests of a student user
     post("/students/{userId}/interests/{interestId}"){
         val userId = call.parameters["userId"]?.toLongOrNull()
             ?: return@post call.respond(HttpStatusCode.BadRequest, "Invalid or missing user ID.")
@@ -33,9 +43,9 @@ fun Route.studentUserInterestsRoutes(){
         }else{
             call.respond(HttpStatusCode.InternalServerError, "Failed to associate interest with user.")
         }
-
     }
 
+    // Deletes a student user's interest
     delete("/students/{userId}/interests/{interestId}"){
         val userId = call.parameters["userId"]?.toLongOrNull()
             ?: return@delete call.respond(HttpStatusCode.BadRequest, "Invalid or missing user ID.")
