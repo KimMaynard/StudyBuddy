@@ -44,9 +44,9 @@ class ChatRoomRepository {
     }
 
     // Read all chat rooms
-   fun getAllChatRooms(): List<ChatRoomEntity> = transaction {
-       ChatRooms.selectAll().map(::rowToChatRoomEntity)
-   }
+    fun getAllChatRooms(): List<ChatRoomEntity> = transaction {
+        ChatRooms.selectAll().map(::rowToChatRoomEntity)
+    }
 
     // Get a chatroom given its id
     fun getChatRoomById(id: Long): ChatRoomEntity? = transaction {
@@ -72,10 +72,4 @@ class ChatRoomRepository {
     fun deleteChatRoom(id: Long): Boolean = transaction {
         ChatRooms.deleteWhere { ChatRooms.id eq id } > 0
     }
-
-
-
-
-
-
 }

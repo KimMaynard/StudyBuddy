@@ -56,7 +56,7 @@ fun Route.chatRoomsRoutes(){
             qrCodeData = chatRoomDTO.qrCodeData,
             createdAt = chatRoomDTO.createdAt,
             studyGroupId = chatRoomDTO.studyGroupId
-            )
+        )
         val repository = ChatRoomRepository()
         val createdChatRoom = repository.createChatRoom(newChatroom)
 
