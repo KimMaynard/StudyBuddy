@@ -75,7 +75,7 @@ class MessagesRepository {
             it[senderId] = updatedMessage.senderId
             it[content] = updatedMessage.content
             it[messageImages] = updatedMessage.messageImages  // Allow updating to null
-            it[messageSentTimestamp] = updatedMessage.messageSentTimestamp
+            // it[messageSentTimestamp] = updatedMessage.messageSentTimestamp - message original timestamp should not change after edits
         } > 0
     }
 

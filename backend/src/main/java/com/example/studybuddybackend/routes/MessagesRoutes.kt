@@ -71,7 +71,7 @@ fun Route.messagesRoutes() {
     post("/messages") {
         val dto = call.receive<MessageDTO>()
         val messageSentTimestamp = OffsetDateTime.parse(dto.messageSentTimestamp)
-        // Decode the Base64 messageImages if provided; otherwise remain null
+        // Decodes the Base64 messageImages if provided; otherwise remain null
         val messageImages: ByteArray? = dto.messageImages?.let { Base64.getDecoder().decode(it) }
         val newMessage = MessageEntity(
             id = null,
@@ -88,19 +88,30 @@ fun Route.messagesRoutes() {
 
     // Update a message
     put("/messages/{id}") {
+
         val id = call.parameters["id"]?.toLongOrNull()
             ?: return@put call.respond(HttpStatusCode.BadRequest, "Invalid or missing message id")
-        val dto = call.receive<MessageDTO>()
-        val messageSentTimestamp = OffsetDateTime.parse(dto.messageSentTimestamp)
-        val messageImages: ByteArray? = dto.messageImages?.let { Base64.getDecoder().decode(it) }
+
+        // DTO for current message
+        val messageDTO = call.receive<MessageDTO>()
+
+        // Gets current message entry
+        val repo = MessagesRepository()
+        val currentMessagesRepository = repo.getMessageById(id)
+            ?: return@put call.respond(HttpStatusCode.NotFound, "Chatroom not found.")
+
+        // CHECK LATER - does the original message attached image remain after an update?
+        val messageImages: ByteArray? = messageDTO.messageImages?.let { Base64.getDecoder().decode(it) }
+
         val updatedMessage = MessageEntity(
             id = id,
-            chatRoomId = dto.chatRoomId,
-            senderId = dto.senderId,
-            content = dto.content,
+            chatRoomId = messageDTO.chatRoomId,
+            senderId = messageDTO.senderId,
+            content = messageDTO.content,
             messageImages = messageImages,
-            messageSentTimestamp = messageSentTimestamp
+            messageSentTimestamp = currentMessagesRepository.messageSentTimestamp // Keeps original timestamp
         )
+
         val repository = MessagesRepository()
         val updated = repository.updateMessage(id, updatedMessage)
         if (updated) {
