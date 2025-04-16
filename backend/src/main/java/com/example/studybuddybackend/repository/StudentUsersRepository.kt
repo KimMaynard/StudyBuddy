@@ -93,7 +93,7 @@ class StudentUsersRepository {
             it[currentDegree] = updatedStudentUser.currentDegree
             it[seniority] = updatedStudentUser.seniority
             it[preferredStudyStyle] = updatedStudentUser.preferredStudyStyle
-            it[dateCreated] = updatedStudentUser.dateCreated
+            // it[dateCreated] = updatedStudentUser.dateCreated - Do not update user account creation date
         } > 0
     }
 

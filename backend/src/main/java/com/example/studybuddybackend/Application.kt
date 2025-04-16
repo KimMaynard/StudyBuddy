@@ -2,6 +2,7 @@ package com.example.studybuddybackend
 
 import com.example.studybuddybackend.database.DatabaseConnectionInit
 import com.example.studybuddybackend.routes.chatRoomsRoutes
+import com.example.studybuddybackend.routes.classesRoutes
 import com.example.studybuddybackend.routes.interestsRoutes
 import io.ktor.http.ContentType
 import io.ktor.serialization.jackson.jackson
@@ -18,6 +19,8 @@ import io.ktor.server.routing.routing
 import com.example.studybuddybackend.routes.studentUserRoutes
 import com.example.studybuddybackend.routes.majorsRoutes
 import com.example.studybuddybackend.routes.messagesRoutes
+import com.example.studybuddybackend.routes.studentUserClassesRoutes
+import com.example.studybuddybackend.routes.studentUserInterestsRoutes
 import com.example.studybuddybackend.routes.studentUserMajorsRoutes
 import com.example.studybuddybackend.routes.universitiesRoutes
 import com.example.studybuddybackend.routes.studyBuddiesRoutes
@@ -51,6 +54,9 @@ fun Application.module() {
         studyGroupsRoutes()
         chatRoomsRoutes()
         messagesRoutes()
+        studentUserInterestsRoutes()
+        classesRoutes()
+        studentUserClassesRoutes()
     }
 
 }

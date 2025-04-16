@@ -1,21 +1,23 @@
 package com.example.studybuddybackend.repository
 
 import com.example.studybuddybackend.database.entities.StudyGroups
+import com.example.studybuddybackend.utils.QrCodeGenUtil
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import java.time.OffsetDateTime
+import java.util.UUID
 
 data class StudyGroupEntity(
     val id: Long? = null,
     val groupName: String,
     val description: String,
     val dateCreated: OffsetDateTime,
-    val qrCodeUrl: String?,
-    val qrCodeData: ByteArray?
+    val qrCodeUrl: String,
+    val qrCodeData: ByteArray
 )
 
-private fun rowToStudyGroupEntity(row: ResultRow): StudyGroupEntity{
+private fun rowToStudyGroupEntity(row: ResultRow): StudyGroupEntity {
     return StudyGroupEntity(
         id = row[StudyGroups.id],
         groupName = row[StudyGroups.groupName],
@@ -28,16 +30,34 @@ private fun rowToStudyGroupEntity(row: ResultRow): StudyGroupEntity{
 
 class StudyGroupsRepository {
 
-    // Create a study group
-    fun createStudyGroup(studyGroupEntity: StudyGroupEntity): StudyGroupEntity = transaction {
+    // Create a study group - dateCreated and QR code values automatically set
+    fun createStudyGroup(groupName: String, description: String): StudyGroupEntity = transaction {
+
+        val currentTime = OffsetDateTime.now()
+
+        // Generates unique studygroup join URL
+        val uniqueToken = UUID.randomUUID().toString()
+        val joinUrl = "http://studybuddy.com/join/$uniqueToken"
+
+        // Generate QR code using our utility
+        val (generatedUrl, generatedQrData) = QrCodeGenUtil.generateQRCode(joinUrl)
+
         val newId = StudyGroups.insert {
-            it[groupName] = studyGroupEntity.groupName
-            it[description] = studyGroupEntity.description
-            it[dateCreated] = studyGroupEntity.dateCreated
-            it[qrCodeUrl] = studyGroupEntity.qrCodeUrl
-            it[qrCodeData] = studyGroupEntity.qrCodeData
+            it[StudyGroups.groupName] = groupName
+            it[StudyGroups.description] = description
+            it[StudyGroups.dateCreated] = currentTime
+            it[StudyGroups.qrCodeUrl] = generatedUrl
+            it[StudyGroups.qrCodeData] = generatedQrData
         } get StudyGroups.id // Returns the generated ID
-        studyGroupEntity.copy(id = newId) // classEntity.id would be null, so we need to copy the new ID instead
+
+        StudyGroupEntity(
+            id = newId,
+            groupName = groupName,
+            description = description,
+            dateCreated = currentTime,
+            qrCodeUrl = generatedUrl,
+            qrCodeData = generatedQrData
+        )
     }
 
     // Read all study groups
@@ -47,20 +67,19 @@ class StudyGroupsRepository {
 
     // Get a study group given its id
     fun getStudyGroupById(id: Long): StudyGroupEntity? = transaction {
-        StudyGroups.selectAll()
+        StudyGroups
+            .selectAll()
             .andWhere { StudyGroups.id eq id }
             .map(::rowToStudyGroupEntity)
             .singleOrNull()
     }
 
-    // Update a study group
-    fun updateStudyGroup(id: Long, updatedStudyGroup: StudyGroupEntity): Boolean = transaction {
-        StudyGroups.update({StudyGroups.id eq id  }){
-            it[groupName] = updatedStudyGroup.groupName
-            it[description] = updatedStudyGroup.description
-            it[dateCreated] = updatedStudyGroup.dateCreated
-            it[qrCodeUrl] = updatedStudyGroup.qrCodeUrl
-            it[qrCodeData] = updatedStudyGroup.qrCodeData
+    // Update a study group – only allows changes to groupName and description
+    fun updateStudyGroup(id: Long, groupName: String, description: String): Boolean = transaction {
+        StudyGroups.update({ StudyGroups.id eq id }) {
+            it[StudyGroups.groupName] = groupName
+            it[StudyGroups.description] = description
+            // Does not update dateCreated, qr code url, or qr code data
         } > 0
     }
 
@@ -68,5 +87,4 @@ class StudyGroupsRepository {
     fun deleteStudyGroup(id: Long): Boolean = transaction {
         StudyGroups.deleteWhere { StudyGroups.id eq id } > 0
     }
-
 }

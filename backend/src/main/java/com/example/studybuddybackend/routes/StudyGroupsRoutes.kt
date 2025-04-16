@@ -1,59 +1,48 @@
 package com.example.studybuddybackend.routes
 
-import com.example.studybuddybackend.repository.StudyGroupEntity
 import com.example.studybuddybackend.repository.StudyGroupsRepository
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.*
 
-import java.time.OffsetDateTime
-
-data class StudyGroupDTO(
+// DTO for creating a study group
+data class StudyGroupCreateDTO(
     val groupName: String,
-    val description: String,
-    val dateCreated: String,
-    val qrCodeUrl: String?,
-    val qrCodeData: ByteArray?
+    val description: String
+)
+
+// DTO for updating a study group
+data class StudyGroupUpdateDTO(
+    val groupName: String,
+    val description: String
 )
 
 fun Route.studyGroupsRoutes() {
+    val repository = StudyGroupsRepository()
 
     // Get all study groups
     get("/studygroups") {
-        val repository = StudyGroupsRepository()
-        val studyGroups = repository.getAllStudyGroups()
-        call.respond(HttpStatusCode.OK, studyGroups)
+        val groups = repository.getAllStudyGroups()
+        call.respond(HttpStatusCode.OK, groups)
     }
 
-    // Get a specific study group by ID
+    // Get a specific study group by id
     get("/studygroups/{id}") {
         val id = call.parameters["id"]?.toLongOrNull()
             ?: return@get call.respond(HttpStatusCode.BadRequest, "Invalid or missing study group id.")
-        val repository = StudyGroupsRepository()
-        val studyGroup = repository.getStudyGroupById(id)
-        if (studyGroup == null) {
+        val group = repository.getStudyGroupById(id)
+        if (group == null) {
             call.respond(HttpStatusCode.NotFound, "Study group not found.")
         } else {
-            call.respond(HttpStatusCode.OK, studyGroup)
+            call.respond(HttpStatusCode.OK, group)
         }
     }
 
-    // Create a new study group.
+    // Create a new study group
     post("/studygroups") {
-        val studyGroupDTO = call.receive<StudyGroupDTO>()
-        // Convert the ISO-8601 date string to OffsetDateTime
-        val createdDate = OffsetDateTime.parse(studyGroupDTO.dateCreated)
-        val newStudyGroup = StudyGroupEntity(
-            id = null, // id is auto-generated
-            groupName = studyGroupDTO.groupName,
-            description = studyGroupDTO.description,
-            dateCreated = createdDate,
-            qrCodeUrl = studyGroupDTO.qrCodeUrl,
-            qrCodeData = studyGroupDTO.qrCodeData
-        )
-        val repository = StudyGroupsRepository()
-        val createdGroup = repository.createStudyGroup(newStudyGroup)
+        val dto = call.receive<StudyGroupCreateDTO>()
+        val createdGroup = repository.createStudyGroup(dto.groupName, dto.description)
         call.respond(HttpStatusCode.Created, createdGroup)
     }
 
@@ -61,18 +50,8 @@ fun Route.studyGroupsRoutes() {
     put("/studygroups/{id}") {
         val id = call.parameters["id"]?.toLongOrNull()
             ?: return@put call.respond(HttpStatusCode.BadRequest, "Invalid or missing study group id.")
-        val studyGroupDTO = call.receive<StudyGroupDTO>()
-        val updatedDate = OffsetDateTime.parse(studyGroupDTO.dateCreated)
-        val updatedStudyGroup = StudyGroupEntity(
-            id = id,
-            groupName = studyGroupDTO.groupName,
-            description = studyGroupDTO.description,
-            dateCreated = updatedDate,
-            qrCodeUrl = studyGroupDTO.qrCodeUrl,
-            qrCodeData = studyGroupDTO.qrCodeData
-        )
-        val repository = StudyGroupsRepository()
-        val updated = repository.updateStudyGroup(id, updatedStudyGroup)
+        val dto = call.receive<StudyGroupUpdateDTO>()
+        val updated = repository.updateStudyGroup(id, dto.groupName, dto.description)
         if (updated) {
             call.respond(HttpStatusCode.OK, "Study group updated successfully.")
         } else {
@@ -84,7 +63,6 @@ fun Route.studyGroupsRoutes() {
     delete("/studygroups/{id}") {
         val id = call.parameters["id"]?.toLongOrNull()
             ?: return@delete call.respond(HttpStatusCode.BadRequest, "Invalid or missing study group id.")
-        val repository = StudyGroupsRepository()
         val deleted = repository.deleteStudyGroup(id)
         if (deleted) {
             call.respond(HttpStatusCode.OK, "Study group deleted successfully.")

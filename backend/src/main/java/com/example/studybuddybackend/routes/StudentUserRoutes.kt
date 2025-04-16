@@ -73,9 +73,14 @@ fun Route.studentUserRoutes() {
 
     // Update an existing student user
     put("/users/{id}") {
+
         val id = call.parameters["id"]?.toLongOrNull()
             ?: return@put call.respond(HttpStatusCode.BadRequest, "Invalid or missing user ID.")
+
         val userDTO = call.receive<UserDTO>()
+        val repository = StudentUsersRepository()
+        val currentStudentUser = repository.getStudentUserById(id)
+            ?: return@put call.respond(HttpStatusCode.NotFound, "Student user not found.")
         val updatedUser = StudentUserEntity(
             id = id,
             firstName = userDTO.firstName,
@@ -90,8 +95,9 @@ fun Route.studentUserRoutes() {
             currentDegree = userDTO.currentDegree,
             seniority = userDTO.seniority,
             preferredStudyStyle = userDTO.preferredStudyStyle,
-            dateCreated = OffsetDateTime.now() // Adjust as needed.
+            dateCreated = currentStudentUser.dateCreated // Update should not change user account creation date
         )
+
         val updated = StudentUsersRepository().updateStudentUser(id, updatedUser)
         if (updated) {
             call.respond(HttpStatusCode.OK, "User updated successfully.")

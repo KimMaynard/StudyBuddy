@@ -18,7 +18,7 @@ data class MessageDTO(
     val senderId: Long,
     val content: String,
     val messageImages: String?, // null if no image attached to message
-    val messageSentTimestamp: String
+    val messageSentTimestamp: String? = null
 )
 
 fun Route.messagesRoutes() {
@@ -70,9 +70,11 @@ fun Route.messagesRoutes() {
     // Create a message
     post("/messages") {
         val dto = call.receive<MessageDTO>()
-        val messageSentTimestamp = OffsetDateTime.parse(dto.messageSentTimestamp)
-        // Decode the Base64 messageImages if provided; otherwise remain null
+        val messageSentTimestamp = OffsetDateTime.now()
+
+        // Decodes the Base64 messageImages if provided; otherwise remain null
         val messageImages: ByteArray? = dto.messageImages?.let { Base64.getDecoder().decode(it) }
+
         val newMessage = MessageEntity(
             id = null,
             chatRoomId = dto.chatRoomId,
@@ -81,6 +83,7 @@ fun Route.messagesRoutes() {
             messageImages = messageImages,
             messageSentTimestamp = messageSentTimestamp
         )
+
         val repository = MessagesRepository()
         val createdMessage = repository.createMessage(newMessage)
         call.respond(HttpStatusCode.Created, createdMessage)
@@ -88,19 +91,32 @@ fun Route.messagesRoutes() {
 
     // Update a message
     put("/messages/{id}") {
+
         val id = call.parameters["id"]?.toLongOrNull()
             ?: return@put call.respond(HttpStatusCode.BadRequest, "Invalid or missing message id")
-        val dto = call.receive<MessageDTO>()
-        val messageSentTimestamp = OffsetDateTime.parse(dto.messageSentTimestamp)
-        val messageImages: ByteArray? = dto.messageImages?.let { Base64.getDecoder().decode(it) }
+
+        // DTO for current message
+        val messageDTO = call.receive<MessageDTO>()
+
+        // Gets current message entry
+        val repo = MessagesRepository()
+        val currentMessagesRepository = repo.getMessageById(id)
+            ?: return@put call.respond(HttpStatusCode.NotFound, "Chatroom not found.")
+
+        val messageImages: ByteArray? = if (messageDTO.messageImages == null)
+            currentMessagesRepository.messageImages
+        else
+            Base64.getDecoder().decode(messageDTO.messageImages)
+
         val updatedMessage = MessageEntity(
             id = id,
-            chatRoomId = dto.chatRoomId,
-            senderId = dto.senderId,
-            content = dto.content,
+            chatRoomId = messageDTO.chatRoomId,
+            senderId = messageDTO.senderId,
+            content = messageDTO.content,
             messageImages = messageImages,
-            messageSentTimestamp = messageSentTimestamp
+            messageSentTimestamp = currentMessagesRepository.messageSentTimestamp
         )
+
         val repository = MessagesRepository()
         val updated = repository.updateMessage(id, updatedMessage)
         if (updated) {

@@ -40,17 +40,9 @@ object ClassesRepository {
 
     // Get a class given its id
     fun getClassById(id: Long): ClassEntity? = transaction {
-        // Condition necessary for the SqlExpressionBuilder
-        // Necessary for the lambda expression - was giving a type mismatch error, stating that it was
-        // seeing the () -> Op<Boolean> datatype when it required List<Expression<*>>
-        val condition = SqlExpressionBuilder.run {
-            Classes.id eq id
-        }
-
-        // Select the condition via select(condition)
-        // Needed to prevent a type mismatch
-        Classes.select(condition)
-            .map { row -> rowToClassEntity(row) } // Now able to map the row to a class entity
+        Classes.selectAll()
+            .andWhere { Classes.id eq id }
+            .map(::rowToClassEntity)
             .singleOrNull()
     }
 
