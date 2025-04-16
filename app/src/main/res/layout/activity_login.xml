@@ -5,14 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
-        
-        
+
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -22,7 +23,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
+                android:background="#D0E5F1"
                 android:orientation="vertical"
                 android:paddingLeft="25dp"
                 android:paddingTop="55dp"
@@ -32,13 +33,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="#D0E5F1"
                     android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="218dp"
                         android:layout_height="200dp"
                         android:layout_gravity="center_horizontal"
-                        android:background="@drawable/studybuddy"/>
+                        android:background="@drawable/studybuddy" />
 
 
                     <TextView
@@ -65,16 +67,16 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginTop="90dp"
-                        android:gravity="bottom"
-                        android:background="@color/white">
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/white"
+                        android:gravity="bottom">
 
                         <EditText
                             android:id="@+id/email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/edit_text_focused_bg"
+                            android:background="#FFFFFF"
                             android:fontFamily="monospace"
                             android:hint="Email"
                             android:inputType="textEmailAddress"
@@ -87,8 +89,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         android:layout_marginBottom="8dp"
-                        android:gravity="bottom"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:gravity="bottom">
 
                         <EditText
                             android:id="@+id/password"
@@ -132,16 +134,13 @@
                 </LinearLayout>
 
 
-
-
-
             </LinearLayout>
 
 
         </ScrollView>
-        
-        
+
+
     </RelativeLayout>
-        
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
