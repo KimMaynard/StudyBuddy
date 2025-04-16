@@ -33,13 +33,14 @@
             android:layout_gravity="right"
             android:layout_margin="10dp"
             android:background="@drawable/dislike_border"
+            android:fontFamily="monospace"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
             android:paddingRight="10dp"
             android:paddingBottom="5dp"
             android:text="No Thanks"
             android:textColor="@color/dislikered"
-            android:textSize="40dp"/>
+            android:textSize="40dp" />
 
     </FrameLayout>
 

@@ -75,22 +75,24 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="monospace"
                 android:gravity="center_horizontal"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:textSize="20sp"
                 android:text="Name"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/university"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="monospace"
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:textColor="@color/black"
-                android:text="Pets" />
+                android:text="University"
+                android:textColor="@color/black" />
 
         </LinearLayout>
 

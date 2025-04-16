@@ -26,12 +26,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
+            android:clickable="true"
+            android:fontFamily="monospace"
+            android:onClick="showProfile"
             android:text="Chat"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:onClick="showProfile"
-            android:clickable="true"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
