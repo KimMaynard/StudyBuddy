@@ -59,9 +59,9 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
                         android:fontFamily="monospace"
-                        android:text="Login Paper"
+                        android:text="Login Page"
                         android:textColor="@color/black"
-                        android:textSize="23dp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout

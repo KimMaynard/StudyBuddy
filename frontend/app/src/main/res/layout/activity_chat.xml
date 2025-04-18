@@ -46,27 +46,24 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
+
         <EditText
             android:id="@+id/message"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="74dp"
             android:layout_margin="1.5dp"
             android:layout_weight="0.8"
             android:fontFamily="monospace"
             android:hint="Type a message" />
-        
-        
+
         <ImageButton
             android:id="@+id/send"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="66dp"
+            android:layout_marginLeft="1dp"
             android:layout_weight="0.2"
-            android:background="@drawable/ic_send_black_24dp"
             android:adjustViewBounds="false"
-            android:layout_marginLeft="1dp"/>
-
-
-
+            android:background="@drawable/ic_send_black_24dp" />
 
 
     </LinearLayout>
