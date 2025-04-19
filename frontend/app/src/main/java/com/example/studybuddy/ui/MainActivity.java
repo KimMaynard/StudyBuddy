@@ -1,4 +1,4 @@
-package com.example.studybuddy;
+package com.example.studybuddy.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.studybuddy.Cards.arrayAdapter;
 import com.example.studybuddy.Cards.cards;
+import com.example.studybuddy.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;

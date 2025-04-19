@@ -60,12 +60,14 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation("com.lorentzos.swipecards:library:1.0.9")
 
-
-    //implementation("com.yuyakaido.android:card-stack-view:2.3.4")
-
+    // implementation("com.yuyakaido.android:card-stack-view:2.3.4")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // For Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.10.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.10.0")
 }
 
 

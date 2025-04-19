@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- For HTTP/HTTPS calls to ktor backend -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,42 +16,45 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Studybuddy"
         tools:targetApi="31">
+
         <activity
-            android:name=".ChatActivity"
+            android:name=".ui.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".BtnDislikeActivity"
+            android:name=".ui.BtnDislikeActivity"
             android:exported="false" />
         <activity
-            android:name=".BtnLikeActivity"
+            android:name=".ui.BtnLikeActivity"
             android:exported="false" />
         <activity
-            android:name=".MatchesActivity"
+            android:name=".ui.MatchesActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
-            android:exported="false" /> <!-- Set LoginActivity as the main activity -->
+            android:name=".ui.SettingsActivity"
+            android:exported="false" />
+
+        <!-- Launches LoginActivity as main, as first window that shows when running frontend.app configuration -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Set MainActivity to be exported so it can be launched from LoginActivity -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" /> <!-- Other activities -->
-        <activity
-            android:name=".Choose_Login_And_Reg"
-            android:exported="false" />
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false" /> <!-- SplashScreenActivity is still marked as exported, but not the entry point -->
-        <activity
-            android:name=".SplashScreenActivity"
-            android:exported="true" />
+        </activity>
+
+        <!-- For matching student users window: shown after login -->
+        <activity android:name=".ui.MainActivity"        android:exported="true" />
+
+        <!-- For chooser screen - not used -->
+        <activity android:name=".ui.Choose_Login_And_Reg" android:exported="false" />
+
+        <!-- For new user registration screen -->
+        <activity android:name=".ui.RegisterActivity"    android:exported="false" />
+
+        <!-- For Splash - the white background, studybuddy logo window that temporarily shows up before going to the login page -->
+        <activity android:name=".ui.SplashScreenActivity" android:exported="true" />
+
     </application>
 
 </manifest>

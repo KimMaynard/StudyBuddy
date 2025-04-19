@@ -1,6 +1,4 @@
-package com.example.studybuddy;
-
-import static com.example.studybuddy.TopNavigationViewHelper.setupTopNavigationView;
+package com.example.studybuddy.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.example.studybuddy.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BtnDislikeActivity extends AppCompatActivity {

@@ -2,11 +2,10 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MatchesActivity"
+    tools:context=".ui.MatchesActivity"
     android:orientation="vertical">
 
     <include
@@ -24,10 +23,6 @@
             android:id="@+id/recyclerView"
             android:scrollbars="vertical"/>
 
-
-
     </ScrollView>
-
-
 
   </LinearLayout>

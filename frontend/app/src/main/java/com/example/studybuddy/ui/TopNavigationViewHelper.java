@@ -1,11 +1,8 @@
-package com.example.studybuddy;
+package com.example.studybuddy.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.MenuItem;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.studybuddy.R;

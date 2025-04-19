@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Choose_Login_And_Reg">
+    tools:context=".ui.Choose_Login_And_Reg">
 
     <RelativeLayout
         android:layout_width="match_parent"
