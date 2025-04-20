@@ -4,14 +4,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Singleton wrapper around Retrofit for your StudyBuddyService.
+ * Wrapper around Retrofit for your StudyBuddyService, and for OpenAI Chatroom
  */
-public class RetrofitClient {
+public class BackendClient {
     private static final String BASE_URL = "http://10.0.2.2:8081/"; // ktor backend server runs on port 8081
-    private static RetrofitClient instance;
+    private static BackendClient instance;
     private final StudyBuddyService service;
 
-    private RetrofitClient() {
+    private BackendClient() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -20,9 +20,9 @@ public class RetrofitClient {
     }
 
     // Returns Retrofit client instance
-    public static synchronized RetrofitClient getInstance() {
+    public static synchronized BackendClient getInstance() {
         if (instance == null) {
-            instance = new RetrofitClient();
+            instance = new BackendClient();
         }
         return instance;
     }

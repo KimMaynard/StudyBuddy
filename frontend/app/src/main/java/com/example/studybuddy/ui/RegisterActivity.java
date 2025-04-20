@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.studybuddy.R;
 import com.example.studybuddy.models.UserDTO;
 import com.example.studybuddy.models.StudentUserEntity;
-import com.example.studybuddy.retrofitNetwork.RetrofitClient;
+import com.example.studybuddy.retrofitNetwork.BackendClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -107,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
             );
 
             // Retrofit network call
-            RetrofitClient
+            BackendClient
                     .getInstance()
                     .getService()
                     .createUser(dto)

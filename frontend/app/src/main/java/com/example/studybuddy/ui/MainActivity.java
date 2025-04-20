@@ -1,5 +1,6 @@
 package com.example.studybuddy.ui;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private SwipeFlingAdapterView flingContainer;
     private arrayAdapter arrayAdapter;
     private List<cards> rowItems;
-    private ImageButton likeButton, dislikeButton;
+    private ImageButton likeButton, dislikeButton, chatButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,15 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "Profile view with ID 'ic_profile' not found!");
             }
         }
+
+        chatButton = findViewById(R.id.ai_chat_button);
+        if (chatButton != null) {
+            chatButton.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                startActivity(intent);
+            });
+        }
+
     }
 
     private void markFirstStartComplete() {
