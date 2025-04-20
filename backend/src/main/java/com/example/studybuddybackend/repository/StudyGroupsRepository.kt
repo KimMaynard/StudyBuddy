@@ -28,6 +28,7 @@ private fun rowToStudyGroupEntity(row: ResultRow): StudyGroupEntity {
     )
 }
 
+
 class StudyGroupsRepository {
 
     // Create a study group - dateCreated and QR code values automatically set
