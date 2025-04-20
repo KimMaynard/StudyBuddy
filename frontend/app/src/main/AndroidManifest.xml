@@ -22,7 +22,7 @@
             android:name=".ui.ChatActivity"
             android:exported="false" />
 
-        <!-- Swipe‑like UI -->
+        <!-- Like and Dislike -->
         <activity
             android:name=".ui.BtnLikeActivity"
             android:exported="false" />
@@ -56,12 +56,12 @@
             android:name=".ui.MainActivity"
             android:exported="true" />
 
-        <!-- (Legacy) chooser screen, not in use -->
+        <!-- Old chooser screen - not in use -->
         <activity
             android:name=".ui.Choose_Login_And_Reg"
             android:exported="false" />
 
-        <!-- Login screen: the entry point of the app -->
+        <!-- Login screen: entry point of the app -->
         <activity
             android:name=".ui.LoginActivity"
             android:exported="true">
@@ -72,4 +72,5 @@
         </activity>
 
     </application>
+
 </manifest>

@@ -7,7 +7,7 @@ public class StudentUserEntity {
     public String middleName;
     public String lastName;
 
-    // stored in backend as base64, currently nullable - need front end convert image to base64 util later
+    // Stored in backend as base64, currently nullable - need front end convert image to base64 util later
     public byte[] profilePicture;
     public String username;
     public String email;

@@ -1,7 +1,6 @@
 import java.util.Properties
 import java.io.File
 
-// Load your OpenAI key from local.properties
 val localProperties = Properties().apply {
     val localFile = File(rootDir, "local.properties")
     if (localFile.exists()) {
@@ -45,12 +44,14 @@ android {
 }
 
 dependencies {
-    // Core Android & Material
-    implementation("androidx.core:core-ktx:${libs.versions.coreKtx.get()}")
-    implementation("androidx.appcompat:appcompat:${libs.versions.appcompat.get()}")
-    implementation("com.google.android.material:material:${libs.versions.material.get()}")
+    // Core Android
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
 
-    // Retrofit + Gson (KTor backend)
+    // Retrofit and Gson - to connect to the KTor backend
     implementation("com.squareup.retrofit2:retrofit:2.10.0")
     implementation("com.squareup.retrofit2:converter-gson:2.10.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
@@ -61,7 +62,10 @@ dependencies {
     // ZXing for QR codes
     implementation("com.google.zxing:core:3.5.1")
 
-    // Navigation & image loading (retorfitKTorConnection branch)
+    // RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.3.1")
+
+    // Other
     implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
