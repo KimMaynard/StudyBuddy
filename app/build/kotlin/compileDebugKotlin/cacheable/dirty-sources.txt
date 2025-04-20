@@ -1,0 +1,12 @@
+C:\Users\Fluxx\AndroidStudioProjects\MyApplication\app\src\main\java\com\example\myapplication\ApiResponse.kt
+C:\Users\Fluxx\AndroidStudioProjects\MyApplication\app\src\main\java\com\example\myapplication\OpenAIAPI.kt
+C:\Users\Fluxx\AndroidStudioProjects\MyApplication\app\src\main\java\com\example\myapplication\OpenAIService.kt
+C:\Users\Fluxx\AndroidStudioProjects\MyApplication\app\src\main\java\com\example\myapplication\ui\theme\Theme.kt
+C:\Users\Fluxx\AndroidStudioProjects\MyApplication\app\src\main\java\com\example\myapplication\ui\theme\Type.kt
+C:\Users\Fluxx\AndroidStudioProjects\MyApplication\app\src\main\java\com\example\myapplication\TestActivity.kt
+C:\Users\Fluxx\AndroidStudioProjects\MyApplication\app\src\main\java\com\example\myapplication\ResponseData.kt
+C:\Users\Fluxx\AndroidStudioProjects\MyApplication\app\src\main\java\com\example\myapplication\Message.kt
+C:\Users\Fluxx\AndroidStudioProjects\MyApplication\app\src\main\java\com\example\myapplication\RequestData.kt
+C:\Users\Fluxx\AndroidStudioProjects\MyApplication\app\src\main\java\com\example\myapplication\RetrofitClient.kt
+C:\Users\Fluxx\AndroidStudioProjects\MyApplication\app\src\main\java\com\example\myapplication\ui\theme\Color.kt
+C:\Users\Fluxx\AndroidStudioProjects\MyApplication\app\src\main\java\com\example\myapplication\MainActivity.kt

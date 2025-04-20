@@ -46,18 +46,6 @@
 
     </FrameLayout>
 
-    <!-- Bottom Navigation View (topNav) -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/topNavViewBar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"
-        app:menu="@menu/top_navigation_toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <!-- Like/Dislike Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -85,17 +73,41 @@
             android:elevation="7dp"
             android:padding="10dp"
             android:src="@drawable/like2" />
-
     </LinearLayout>
+
+    <!-- AI Chat Button -->
+    <ImageButton
+        android:id="@+id/ai_chat_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="90dp"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Open Chat"
+        android:src="@drawable/baseline_3p_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- TextView for when no one is available -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:text="There's no one to study with"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/topNavViewBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/topNavViewBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"
+        app:menu="@menu/top_navigation_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

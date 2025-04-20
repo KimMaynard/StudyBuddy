@@ -1,6 +1,6 @@
 package com.example.studybuddy;
 
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private SwipeFlingAdapterView flingContainer;
     private arrayAdapter arrayAdapter;
     private List<cards> rowItems;
-    private ImageButton likeButton, dislikeButton;
+    private ImageButton likeButton, dislikeButton, chatButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,21 +66,23 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "BottomNavigationView (topNavViewBar) not found!");
         }
 
-        if (isFirstStart) {
-            View profileView = findViewById(R.id.ic_profile);
+        View profileView = findViewById(R.id.ic_profile);
+        if (isFirstStart && profileView != null) {
+            showToolTipProfile(profileView);
+        }
 
-            if (profileView != null) {
-                showToolTipProfile(profileView);
-            } else {
-                Log.e(TAG, "Profile view with ID 'ic_profile' not found!");
-            }
+        chatButton = findViewById(R.id.ai_chat_button);
+        if (chatButton != null) {
+            chatButton.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                startActivity(intent);
+            });
         }
     }
 
     private void markFirstStartComplete() {
-        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putBoolean(FIRST_START_KEY, false);
-        editor.apply();
+        getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .edit().putBoolean(FIRST_START_KEY, false).apply();
     }
 
     private void showToolTipProfile(View profileView) {
@@ -95,43 +97,21 @@ public class MainActivity extends AppCompatActivity {
         flingContainer = findViewById(R.id.frame);
         rowItems = new ArrayList<>();
 
-        // Dummy Data - You can load from database later
-        rowItems.add(new cards("1", "Alice", "Harvard", "Computer Science", "Coding, Music", "Dog", "https://placekitten.com/400/400"));
-        rowItems.add(new cards("2", "Bob", "Stanford", "Mathematics", "Gaming, Reading", "Cat", "https://placekitten.com/401/401"));
-        rowItems.add(new cards("3", "Charlie", "MIT", "Engineering", "Robotics", "Parrot", "https://placekitten.com/402/402"));
+        rowItems.add(new cards("1", "Alice", "Harvard", "CS", "Coding", "Dog", "https://placekitten.com/400/400"));
+        rowItems.add(new cards("2", "Bob", "Stanford", "Math", "Gaming", "Cat", "https://placekitten.com/401/401"));
 
         arrayAdapter = new arrayAdapter(this, R.layout.item, rowItems);
         flingContainer.setAdapter(arrayAdapter);
 
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
-            @Override
-            public void removeFirstObjectInAdapter() {
+            @Override public void removeFirstObjectInAdapter() {
                 rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
-
-            @Override
-            public void onLeftCardExit(Object dataObject) {
-                // Disliked
-            }
-
-            @Override
-            public void onRightCardExit(Object dataObject) {
-                // Liked
-            }
-
-            @Override
-            public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                // Load more users if needed
-            }
-
-            @Override
-            public void onScroll(float scrollProgressPercent) {
-            }
-        });
-
-        flingContainer.setOnItemClickListener((itemPosition, dataObject) -> {
-
+            @Override public void onLeftCardExit(Object dataObject) {}
+            @Override public void onRightCardExit(Object dataObject) {}
+            @Override public void onAdapterAboutToEmpty(int itemsInAdapter) {}
+            @Override public void onScroll(float scrollProgressPercent) {}
         });
     }
 
